@@ -20,6 +20,7 @@ export class UsersService {
   public createUser(user: User) {
     console.log(`createUser -> ${user.name}`);
     console.log(user);
+    this._userQB.createUser(user);
   }
 
   public updateUser(user: User) {
