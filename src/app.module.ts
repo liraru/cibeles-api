@@ -21,9 +21,7 @@ function getDBConfig(host: 'local' | 'develop'): TypeOrmModuleOptions {
   providers: [AppService]
 })
 export class AppModule implements OnModuleInit {
-  constructor(private readonly appService: AppService, private dataSource: DataSource) {
-    
-  }
+  constructor(private readonly appService: AppService, private dataSource: DataSource) {}
   onModuleInit() {
     // console.log('Initializing API');
   }
