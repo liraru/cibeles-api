@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { User } from 'src/modules/users/entities/user.entity';
 import { UserQueryBuilderService } from 'src/modules/users/services/user-query-builder.service';
+import { InsertResult } from 'typeorm';
 
 @Injectable()
 export class UsersService {
@@ -12,15 +13,14 @@ export class UsersService {
     return of([]);
   }
 
-  public getUserById(userId: number): Observable<User> {
+  public getUserById(userId: number): Promise<User> {
     console.log(`getUserById -> ${userId}`);
-    return of();
+    return this._userQB.getUserById(userId);
   }
 
-  public createUser(user: User) {
-    console.log(`createUser -> ${user.name}`);
-    console.log(user);
-    this._userQB.createUser(user);
+  public createUser(user: User): Promise<InsertResult> {
+    console.log(`createUser -> ${JSON.stringify(user)}`);
+    return this._userQB.createUser(user);
   }
 
   public updateUser(user: User) {

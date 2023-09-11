@@ -10,8 +10,18 @@ export class UserQueryBuilderService {
     return this._datasource
       .getRepository(User)
       .createQueryBuilder()
-      .insert().into(User)
+      .insert()
+      .into(User)
       .values([user])
       .execute();
+  }
+
+  getUserById(userId: number): Promise<User> {
+    return this._datasource
+      .getRepository(User)
+      .createQueryBuilder(`u`)
+      .select(`u.id, u.name, u.height, u.birthdate, u.gender`)
+      .where(`u.id = ${userId}`)
+      .getOne();
   }
 }
