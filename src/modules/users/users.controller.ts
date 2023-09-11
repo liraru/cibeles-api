@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { IUser } from 'src/modules/users/interfaces/user.interface';
+import { User } from 'src/modules/users/entities/user.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -12,7 +12,7 @@ export class UsersController {
   }
 
   @Post('new')
-  public createUser(@Body() user: IUser) {
+  public createUser(@Body() user: User) {
     console.log(`>>> RECEIVED USER`);
     console.log(user);
     return this._usersService.createUser(user);
