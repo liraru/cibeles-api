@@ -1,9 +1,7 @@
 export const ENTITIES = {
-  WishHistory: 'user_wish_history',
   Users: 'users',
-  UserCharacter: 'user_characters',
-  UserWeapon: 'user_weapons',
-  ResinPlan: 'user_resin_planner',
-  Characters: 'characters',
-  UserAbyssTeams: 'user_abyss_teams'
+  WeightCycles: 'weight_cycles',
+  WeightRecords: 'weight_records',
+  PeriodRecords: 'period_records',
+  Diets: 'diets'
 }
