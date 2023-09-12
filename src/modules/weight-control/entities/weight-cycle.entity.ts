@@ -9,4 +9,5 @@ export class WeightCycle {
   @Column() startDate: string;
   @Column() initialWeight: number;
   @Column() targetWeight: number;
+  @Column('boolean', { default: true }) isActive: boolean;
 }

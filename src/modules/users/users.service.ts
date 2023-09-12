@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs/internal/Observable';
-import { of } from 'rxjs/internal/observable/of';
 import { User } from 'src/modules/users/entities/user.entity';
 import { UserQueryBuilderService } from 'src/modules/users/services/user-query-builder.service';
 import { InsertResult } from 'typeorm';
@@ -8,9 +6,8 @@ import { InsertResult } from 'typeorm';
 @Injectable()
 export class UsersService {
   constructor(private readonly _userQB: UserQueryBuilderService) {}
-  public getUsers(): Observable<User[]> {
-    console.log(`getUsers`);
-    return of([]);
+  public getUsers(): Promise<User[]> {
+    return this._userQB.getUsers();
   }
 
   public getUserById(userId: number): Promise<User> {

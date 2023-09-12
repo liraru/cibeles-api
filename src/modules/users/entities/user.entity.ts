@@ -8,4 +8,5 @@ export class User {
   @Column() height: number;
   @Column() birthdate: string;
   @Column() gender: string;
+  @Column('boolean', { default: true }) isActive: boolean;
 }

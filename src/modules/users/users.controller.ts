@@ -18,8 +18,6 @@ export class UsersController {
 
   @Post('new')
   public createUser(@Body() user: User) {
-    console.log(`>>> RECEIVED USER`);
-    console.log(user);
     return this._usersService.createUser(user);
   }
 }
