@@ -7,27 +7,27 @@ export class UsersController {
   constructor(private readonly _usersService: UsersService) {}
 
   @Get('')
-  public getUsersList() {
+  getUsersList() {
     return this._usersService.getUsers();
   }
 
   @Get('find/:id')
-  public getUserById(@Param('id') userId: number) {
+  getUserById(@Param('id') userId: number) {
     return this._usersService.getUserById(userId);
   }
 
   @Post('new')
-  public createUser(@Body() user: User) {
+  createUser(@Body() user: User) {
     return this._usersService.createUser(user);
   }
 
   @Put('update')
-  public updateUser(@Body() user: User) {
+  updateUser(@Body() user: User) {
     return this._usersService.updateUser(user);
   }
 
   @Put('change-status')
-  public changeUserStatus(@Body() data: { userId: number; isActive: boolean }) {
+  changeUserStatus(@Body() data: { userId: number; isActive: boolean }) {
     return this._usersService.changeUserStatus(data.userId, data.isActive);
   }
 }
