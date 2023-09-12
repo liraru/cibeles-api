@@ -13,6 +13,7 @@ export class UsersService {
 
   getUserById(userId: number): Promise<User> {
     console.log(`getUserById -> ${userId}`);
+    console.log(userId);
     return this._userQB.getUserById(userId);
   }
 
