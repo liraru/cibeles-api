@@ -1,9 +1,20 @@
 export class StringUtils {
-  static trimObject(value: Object): Object {
+  static trimPlainObject(value: any): any {
     if (value) {
-      Object.keys(value).forEach(el => {
-        if ()
+      Object.keys(value).forEach((el) => {
+        if (typeof value[el] === `string`) {
+          value[el] = value[el].trim();
+        }
+        // TODO :: Make recursive
+        // if (!value[el].isArray()) {
+        //   if (typeof value[el] === `string`) {
+        //     value[el] = value[el].trim();
+        //   }
+        // } else {
+        //   StringUtils.trimObject(value[el]);
+        // }
       });
     }
+    return value;
   }
 }

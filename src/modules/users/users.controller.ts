@@ -17,7 +17,7 @@ export class UsersController {
 
   @Get('find/:id')
   getUserById(@Param('id') userId: number) {
-    if (typeof userId !== 'number') {
+    if (isNaN(userId)) {
       this._requestErrorManagerService.invalidId();
     }
     return this._usersService.getUserById(userId);

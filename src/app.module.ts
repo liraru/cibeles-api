@@ -16,7 +16,7 @@ function getDBConfig(host: 'local' | 'develop'): TypeOrmModuleOptions {
 }
 
 @Module({
-  imports: [UsersModule, TypeOrmModule.forRoot(getDBConfig('local'))],
+  imports: [UsersModule, TypeOrmModule.forRoot(getDBConfig('develop'))],
   controllers: [],
   providers: [AppService]
 })
