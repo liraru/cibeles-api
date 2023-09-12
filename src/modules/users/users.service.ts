@@ -27,7 +27,7 @@ export class UsersService {
   }
 
   public changeUserStatus(userId: number, isActive: boolean): Promise<UpdateResult> {
-    console.log(`changeUserStatus -> ${userId}`);
+    console.log(`changeUserStatus -> id: ${userId}, status: ${isActive}`);
     return this._userQB.changeUserStatus(userId, isActive);
   }
 }
