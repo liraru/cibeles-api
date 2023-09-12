@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/modules/users/entities/user.entity';
-import { UserQueryBuilderService } from 'src/modules/users/services/user-query-builder.service';
+import { UserQueryBuilderService } from 'src/modules/users/services/user-query-builder/user-query-builder.service';
 import { InsertResult, UpdateResult } from 'typeorm';
 
 @Injectable()
