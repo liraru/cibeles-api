@@ -20,8 +20,8 @@ export class WeightCycleController {
   }
 
   // ➡️ get current user cycle
-  @Get(`user-current`)
-  getUserCurrent(userId: number): Promise<WeightCycle> {
+  @Get(`user-current/:id`)
+  getUserCurrent(@Param('id') userId: number): Promise<WeightCycle> {
     return this._weightCycleService.getCurrentUser(userId);
   }
 

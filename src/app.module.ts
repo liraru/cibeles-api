@@ -2,6 +2,7 @@ import { Module, OnModuleInit } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { databaseConfig } from 'private/database.config';
 import { UsersModule } from 'src/modules/users/users.module';
+import { WeightControlModule } from 'src/modules/weight-control/weight-control.module';
 import { AppService } from 'src/services/app.service';
 import { DataSource } from 'typeorm';
 
@@ -16,7 +17,7 @@ function getDBConfig(host: 'local' | 'develop'): TypeOrmModuleOptions {
 }
 
 @Module({
-  imports: [UsersModule, TypeOrmModule.forRoot(getDBConfig('develop'))],
+  imports: [UsersModule, WeightControlModule, TypeOrmModule.forRoot(getDBConfig('develop'))],
   controllers: [],
   providers: [AppService]
 })
