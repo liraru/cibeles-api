@@ -10,17 +10,17 @@ export class UserQueryBuilderService {
     return this._datasource
       .getRepository(User)
       .createQueryBuilder()
-      .select(`id, name, height, birthdate, gender, is_active`)
-      .getRawMany();
+      .select()
+      .getMany();
   }
 
   getUserById(userId: number): Promise<User> {
     return this._datasource
       .getRepository(User)
       .createQueryBuilder()
-      .select(`id, name, height, birthdate, gender, is_active`)
+      .select()
       .where(`id = ${userId}`)
-      .getRawOne();
+      .getOne();
   }
 
   createUser(user: User): Promise<InsertResult> {
