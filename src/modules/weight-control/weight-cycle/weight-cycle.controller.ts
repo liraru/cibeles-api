@@ -21,5 +21,5 @@ export class WeightCycleController {
   // ➡️ get current user cycle
   // ➡️ add cycle
   // ➡️ edit cycle
-  // ➡️ activate/deactivate cycle
+  // ➡️ activate/deactivate cycle 
 }
