@@ -6,12 +6,12 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 export class WeightRecord {
   @PrimaryGeneratedColumn() id?: number;
   @ManyToOne(() => WeightCycle, (WeightCycle) => WeightCycle.id) weightCycle: WeightCycle;
-  @Column() weight: number;
-  @Column() water: number;
-  @Column() fat: number;
-  @Column() waist: number;
-  @Column() chest: number;
-  @Column() hip: number;
-  @Column() thigh: number;
-  @Column() arm: number;
+  @Column(`decimal`) weight: number;
+  @Column(`decimal`) water: number;
+  @Column(`decimal`) fat: number;
+  @Column(`decimal`) waist: number;
+  @Column(`decimal`) chest: number;
+  @Column(`decimal`) hip: number;
+  @Column(`decimal`) thigh: number;
+  @Column(`decimal`) arm: number;
 }

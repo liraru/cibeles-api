@@ -58,13 +58,13 @@ export class WeightCycleQueryBuilderService {
   }
 
   // ➡️ activate/deactivate cycle
-  updateWeightCycleStatus(isActive: boolean, weightCycleId: number): Promise<UpdateResult> {
+  updateWeightCycleStatus(isActive: boolean, id: number): Promise<UpdateResult> {
     return this._datasource
       .getRepository(WeightCycle)
       .createQueryBuilder()
       .update(WeightCycle)
       .set({ isActive: isActive })
-      .where(`id = :id`, { id: weightCycleId })
+      .where(`id = :id`, { id: id })
       .execute();
   }
 }

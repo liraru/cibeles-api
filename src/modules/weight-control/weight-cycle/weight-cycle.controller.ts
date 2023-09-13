@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { WeightCycle } from 'src/modules/weight-control/entities/weight-cycle.entity';
 import { WeightCycleService } from 'src/modules/weight-control/weight-cycle/services/weight-cycle/weight-cycle.service';
 import { InsertResult, UpdateResult } from 'typeorm';
@@ -27,19 +27,19 @@ export class WeightCycleController {
 
   // ➡️ add cycle
   @Post(`create`)
-  createCycle(cycle: WeightCycle): Promise<InsertResult> {
+  createCycle(@Body() cycle: WeightCycle): Promise<InsertResult> {
     return this._weightCycleService.create(cycle);
   }
 
   // ➡️ edit cycle
   @Put(`update`)
-  updateCycle(cycle: WeightCycle): Promise<UpdateResult> {
+  updateCycle(@Body() cycle: WeightCycle): Promise<UpdateResult> {
     return this._weightCycleService.update(cycle);
   }
 
   // ➡️ activate/deactivate cycle
   @Put(`status`)
-  changeStatus(isActive: boolean, userId: number): Promise<UpdateResult> {
-    return this._weightCycleService.changeStatus(isActive, userId);
+  changeStatus(@Body() data: { isActive: boolean; cycleId: number }): Promise<UpdateResult> {
+    return this._weightCycleService.changeStatus(data.isActive, data.cycleId);
   }
 }

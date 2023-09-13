@@ -7,7 +7,7 @@ export class WeightCycle {
   @PrimaryGeneratedColumn() id?: number;
   @ManyToOne(() => User, (user) => user.id) user: User;
   @Column() startDate: string;
-  @Column() initialWeight: number;
-  @Column() targetWeight: number;
-  @Column('boolean', { default: true }) isActive: boolean;
+  @Column(`decimal`) initialWeight: number;
+  @Column(`decimal`) targetWeight: number;
+  @Column(`boolean`, { default: true }) isActive: boolean;
 }
