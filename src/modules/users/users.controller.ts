@@ -11,12 +11,12 @@ export class UsersController {
   ) {}
 
   @Get('')
-  getUsersList() {
+  getUsersList(): Promise<User[]> {
     return this._usersService.getUsers();
   }
 
   @Get('find/:id')
-  getUserById(@Param('id') userId: number) {
+  getUserById(@Param('id') userId: number): Promise<User> {
     if (isNaN(userId)) {
       this._requestErrorManagerService.invalidId();
     }
