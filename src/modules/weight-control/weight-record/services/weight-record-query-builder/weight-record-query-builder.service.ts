@@ -12,7 +12,7 @@ export class WeightRecordQueryBuilderService {
       .getRepository(WeightRecord)
       .createQueryBuilder()
       .select()
-      .where(`cycle_id = :id`, { id: cycleId })
+      .where(`weight_cycle_id = :id`, { id: cycleId })
       .getMany();
   }
 
@@ -49,7 +49,7 @@ export class WeightRecordQueryBuilderService {
   }
 
   // ➡️ delete record
-  detele(recordId: number): Promise<DeleteResult> {
+  delete(recordId: number): Promise<DeleteResult> {
     return this._datasource
       .getRepository(WeightRecord)
       .createQueryBuilder()
