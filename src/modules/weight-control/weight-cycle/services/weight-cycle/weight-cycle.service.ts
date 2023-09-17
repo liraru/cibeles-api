@@ -20,32 +20,52 @@ export class WeightCycleService {
 
   // ➡️ get cycles by user
   getAllByUser(userId: number): Promise<WeightCycle[]> {
-    const errorMsg = this._userValidationService.checkUserExists(userId);
-    if (errorMsg) {
-      throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: errorMsg }, HttpStatus.BAD_REQUEST);
+    if (!this._userValidationService.checkUserExists(userId)) {
+      throw new HttpException(
+        { status: HttpStatus.NOT_FOUND, error: `User not found` },
+        HttpStatus.NOT_FOUND
+      );
     }
     return this._qb.getAllByUser(userId);
   }
 
   // ➡️ get current user cycle
   getCurrentUser(userId: number): Promise<WeightCycle> {
-    // this._userValidationService.checkUserExists(userId).then((exists: boolean) => {
-      return this._qb.getCurrentCycleByUser(userId);
-    // })
+    if (!this._userValidationService.checkUserExists(userId)) {
+      throw new HttpException(
+        { status: HttpStatus.NOT_FOUND, error: `User not found` },
+        HttpStatus.NOT_FOUND
+      );
+    }
+    return this._qb.getCurrentCycleByUser(userId);
   }
 
   // ➡️ add cycle
   create(cycle: WeightCycle): Promise<InsertResult> {
+    const errorMsg = this._validationService.checkIntegrity(cycle);
+    if (errorMsg.length > 0) {
+      throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: errorMsg }, HttpStatus.BAD_REQUEST);
+    }
     return this._qb.createWeightCycle(cycle);
   }
 
   // ➡️ edit cycle
   update(cycle: WeightCycle): Promise<UpdateResult> {
+    const errorMsg = this._validationService.checkIntegrity(cycle);
+    if (errorMsg.length > 0) {
+      throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: errorMsg }, HttpStatus.BAD_REQUEST);
+    }
     return this._qb.updateWeightCycle(cycle);
   }
 
   // ➡️ activate/deactivate cycle
   changeStatus(isActive: boolean, userId: number): Promise<UpdateResult> {
+    if (!this._userValidationService.checkUserExists(userId)) {
+      throw new HttpException(
+        { status: HttpStatus.NOT_FOUND, error: `User not found` },
+        HttpStatus.NOT_FOUND
+      );
+    }
     return this._qb.updateWeightCycleStatus(isActive, userId);
   }
 }

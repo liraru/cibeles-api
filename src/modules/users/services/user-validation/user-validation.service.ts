@@ -11,7 +11,8 @@ export class UserValidationService {
 
   async checkUserExists(userId: number) {
     const user = await this._userQB.getUserById(userId).then();
-    return user !== undefined;
+    console.log(user);
+    return user !== null;
   }
 
   checkIntegrity(user: User): string {
