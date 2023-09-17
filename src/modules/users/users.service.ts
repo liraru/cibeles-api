@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from 'src/modules/users/entities/user.entity';
 import { UserQueryBuilderService } from 'src/modules/users/services/user-query-builder/user-query-builder.service';
 import { UserValidationService } from 'src/modules/users/services/user-validation/user-validation.service';
+import { RequestErrorManagerService } from 'src/services/request-error-manager/request-error-manager.service';
 import { StringUtils } from 'src/utils/string.utils';
 import { InsertResult, UpdateResult } from 'typeorm';
 
@@ -9,7 +10,8 @@ import { InsertResult, UpdateResult } from 'typeorm';
 export class UsersService {
   constructor(
     private readonly _userQB: UserQueryBuilderService,
-    private readonly _userValidationService: UserValidationService
+    private readonly _userValidationService: UserValidationService,
+    private readonly _requestErrorManagerService: RequestErrorManagerService
   ) {}
 
   private _throwErrorBadUser(errorMsg: string) {
@@ -52,6 +54,9 @@ export class UsersService {
 
   changeUserStatus(userId: number, isActive: boolean): Promise<UpdateResult> {
     console.log(`changeUserStatus -> id: ${userId}, status: ${isActive}`);
+    if (isNaN(userId)) {
+      this._requestErrorManagerService.invalidId();
+    }
     return this._userQB.changeUserStatus(userId, isActive);
   }
 }
