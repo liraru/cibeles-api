@@ -1,10 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/modules/users/entities/user.entity';
+import { UserQueryBuilderService } from 'src/modules/users/services/user-query-builder/user-query-builder.service';
 
 @Injectable()
 export class UserValidationService {
+  constructor(private readonly _userQB: UserQueryBuilderService) {}
   private _isString(value: any): boolean {
     return typeof value === `string`;
+  }
+
+  async checkUserExists(userId: number) {
+    const user = await this._userQB.getUserById(userId).then();
+    return user !== undefined;
   }
 
   checkIntegrity(user: User): string {

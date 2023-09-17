@@ -1,11 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { UserValidationService } from 'src/modules/users/services/user-validation/user-validation.service';
 import { WeightCycle } from 'src/modules/weight-control/entities/weight-cycle.entity';
 import { WeightCycleQueryBuilderService } from 'src/modules/weight-control/weight-cycle/services/weight-cycle-query-builder/weight-cycle-query-builder.service';
+import { WeightCycleValidationService } from 'src/modules/weight-control/weight-cycle/services/weight-cycle-validation/weight-cycle-validation.service';
 import { InsertResult, UpdateResult } from 'typeorm';
 
 @Injectable()
 export class WeightCycleService {
-  constructor(private readonly _qb: WeightCycleQueryBuilderService) {}
+  constructor(
+    private readonly _qb: WeightCycleQueryBuilderService,
+    private readonly _validationService: WeightCycleValidationService,
+    private readonly _userValidationService: UserValidationService
+  ) {}
 
   // ➡️ get all cycles
   getAll(): Promise<WeightCycle[]> {
@@ -14,12 +20,18 @@ export class WeightCycleService {
 
   // ➡️ get cycles by user
   getAllByUser(userId: number): Promise<WeightCycle[]> {
+    const errorMsg = this._userValidationService.checkUserExists(userId);
+    if (errorMsg) {
+      throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: errorMsg }, HttpStatus.BAD_REQUEST);
+    }
     return this._qb.getAllByUser(userId);
   }
 
   // ➡️ get current user cycle
   getCurrentUser(userId: number): Promise<WeightCycle> {
-    return this._qb.getCurrentCycleByUser(userId);
+    // this._userValidationService.checkUserExists(userId).then((exists: boolean) => {
+      return this._qb.getCurrentCycleByUser(userId);
+    // })
   }
 
   // ➡️ add cycle

@@ -1,3 +1,5 @@
+export const REGEX = { YYYYMMDD: /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/ };
+
 export class StringUtils {
   static trimPlainObject(value: any): any {
     if (value) {
