@@ -7,18 +7,18 @@ import { InsertResult, UpdateResult } from 'typeorm';
 export class WeightCycleService {
   constructor(private readonly _qb: WeightCycleQueryBuilderService) {}
 
-  // ➡️ get all cycles
-  getAll(): Promise<WeightCycle[]> {
-    return this._qb.getAll();
+  // ➡️ get cycles by user
+  getById(cycleId: string): Promise<WeightCycle> {
+    return this._qb.getById(cycleId);
   }
 
   // ➡️ get cycles by user
-  getAllByUser(userId: number): Promise<WeightCycle[]> {
+  getAllByUser(userId: string): Promise<WeightCycle[]> {
     return this._qb.getAllByUser(userId);
   }
 
   // ➡️ get current user cycle
-  getCurrentUser(userId: number): Promise<WeightCycle> {
+  getCurrentUser(userId: string): Promise<WeightCycle> {
     return this._qb.getCurrentCycleByUser(userId);
   }
 

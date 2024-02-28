@@ -44,7 +44,7 @@ export class WeightRecordQueryBuilderService {
         thigh: record.thigh,
         arm: record.arm
       })
-      .where(`id = :id`, { id: record.id })
+      .where(`id = :id`, { id: record.uuid })
       .execute();
   }
 

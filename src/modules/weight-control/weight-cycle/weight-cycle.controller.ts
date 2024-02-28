@@ -7,33 +7,27 @@ import { InsertResult, UpdateResult } from 'typeorm';
 export class WeightCycleController {
   constructor(private readonly _weightCycleService: WeightCycleService) {}
 
-  // ➡️ get all cycles
-  @Get(``)
-  getAll(): Promise<WeightCycle[]> {
-    return this._weightCycleService.getAll();
+  @Get(`:id`)
+  getById(@Param(`id`) cycleId: string): Promise<WeightCycle> {
+    return this._weightCycleService.getById(cycleId);
   }
 
   // ➡️ get cycles by user
   @Get(`user/:id`)
-  getAllByUser(@Param('id') userId: number): Promise<WeightCycle[]> {
+  getAllByUser(@Param('id') userId: string): Promise<WeightCycle[]> {
     return this._weightCycleService.getAllByUser(userId);
   }
 
-  // ➡️ get current user cycle
-  @Get(`user-current/:id`)
-  getUserCurrent(@Param('id') userId: number): Promise<WeightCycle> {
-    return this._weightCycleService.getCurrentUser(userId);
-  }
-
   // ➡️ add cycle
-  @Post(`create`)
+  @Post(``)
   createCycle(@Body() cycle: WeightCycle): Promise<InsertResult> {
     return this._weightCycleService.create(cycle);
   }
 
   // ➡️ edit cycle
-  @Put(`update`)
-  updateCycle(@Body() cycle: WeightCycle): Promise<UpdateResult> {
+  @Put(`:id`)
+  updateCycle(@Param('id') uuid: string, @Body() cycle: WeightCycle): Promise<UpdateResult> {
+    cycle.uuid = uuid;
     return this._weightCycleService.update(cycle);
   }
 
