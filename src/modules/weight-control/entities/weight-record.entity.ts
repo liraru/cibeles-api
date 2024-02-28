@@ -5,7 +5,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ name: ENTITIES.WeightRecords })
 export class WeightRecord {
   @PrimaryGeneratedColumn() id?: number;
-  @ManyToOne(() => WeightCycle, (WeightCycle) => WeightCycle.id) weightCycle: WeightCycle;
+  @ManyToOne(() => WeightCycle, (WeightCycle) => WeightCycle.uuid) weightCycle: WeightCycle;
   @Column(`decimal`, { precision: 6, scale: 2 }) weight: number;
   @Column(`decimal`, { precision: 6, scale: 2 }) water: number;
   @Column(`decimal`, { precision: 6, scale: 2 }) fat: number;

@@ -1,11 +1,9 @@
 import { ENTITIES } from 'src/config/entity-tagging.constant';
-import { User } from 'src/modules/users/entities/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: ENTITIES.WeightCycles })
 export class WeightCycle {
-  @PrimaryGeneratedColumn() id?: number;
-  @ManyToOne(() => User, (user) => user.id) user: User;
+  @PrimaryGeneratedColumn() uuid: number;
   @Column() startDate: string;
   @Column(`decimal`, { precision: 6, scale: 2 }) initialWeight: number;
   @Column(`decimal`, { precision: 6, scale: 2 }) targetWeight: number;

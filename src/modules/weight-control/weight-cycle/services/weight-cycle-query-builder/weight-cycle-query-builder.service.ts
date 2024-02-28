@@ -53,7 +53,7 @@ export class WeightCycleQueryBuilderService {
         initialWeight: cycle.initialWeight,
         targetWeight: cycle.targetWeight
       })
-      .where(`id = :id`, { id: cycle.id })
+      .where(`id = :id`, { id: cycle.uuid })
       .execute();
   }
 
