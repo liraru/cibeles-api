@@ -12,6 +12,11 @@ export class WeightRecordService {
     return this._qb.getCycleRecords(cycleId);
   }
 
+  // ➡️ get all cycle's records
+  getRecord(id: number): Promise<WeightRecord> {
+    return this._qb.getRecordById(id);
+  }
+
   // ➡️ create record
   create(record: WeightRecord): Promise<InsertResult> {
     return this._qb.create(record);
