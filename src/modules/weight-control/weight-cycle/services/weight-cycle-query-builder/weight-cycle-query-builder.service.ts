@@ -6,28 +6,33 @@ import { DataSource, InsertResult, UpdateResult } from 'typeorm';
 export class WeightCycleQueryBuilderService {
   constructor(private readonly _datasource: DataSource) {}
 
-  // ➡️ get all cycles
-  getAll(): Promise<WeightCycle[]> {
-    return this._datasource.getRepository(WeightCycle).createQueryBuilder().select().getMany();
-  }
-
-  // ➡️ get cycles by user
-  getAllByUser(userId: number): Promise<WeightCycle[]> {
+  // ➡️ get cycle by id
+  getById(cycleId: string): Promise<WeightCycle> {
     return this._datasource
       .getRepository(WeightCycle)
       .createQueryBuilder()
       .select()
-      .where(`user_id = :id`, { id: userId })
+      .where(`uuid = :id`, { id: cycleId })
+      .getOne();
+  }
+
+  // ➡️ get cycles by user
+  getAllByUser(userId: string): Promise<WeightCycle[]> {
+    return this._datasource
+      .getRepository(WeightCycle)
+      .createQueryBuilder()
+      .select()
+      .where(`user_uuid = :id`, { id: userId })
       .getMany();
   }
 
   // ➡️ get current user cycle
-  getCurrentCycleByUser(userId: number): Promise<WeightCycle> {
+  getCurrentCycleByUser(userId: string): Promise<WeightCycle> {
     return this._datasource
       .getRepository(WeightCycle)
       .createQueryBuilder()
       .select()
-      .where(`user_id = :id`, { id: userId })
+      .where(`user_uuid = :id`, { id: userId })
       .getOne();
   }
 
@@ -53,7 +58,7 @@ export class WeightCycleQueryBuilderService {
         initialWeight: cycle.initialWeight,
         targetWeight: cycle.targetWeight
       })
-      .where(`id = :id`, { id: cycle.uuid })
+      .where(`uuid = :id`, { id: cycle.uuid })
       .execute();
   }
 
@@ -64,7 +69,7 @@ export class WeightCycleQueryBuilderService {
       .createQueryBuilder()
       .update(WeightCycle)
       .set({ isActive: isActive })
-      .where(`id = :id`, { id: id })
+      .where(`uuid = :id`, { id: id })
       .execute();
   }
 }

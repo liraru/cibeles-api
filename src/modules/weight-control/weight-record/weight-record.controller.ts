@@ -13,20 +13,26 @@ export class WeightRecordController {
     return this._weightRecordService.getCycleRecords(cycleId);
   }
 
+  // ➡️ get record by id
+  @Get(`:id`)
+  getRecordById(@Param(`id`) id: number): Promise<WeightRecord> {
+    return this._weightRecordService.getRecord(id);
+  }
+
   // ➡️ create record
-  @Post(`create`)
+  @Post(``)
   create(@Body() record: WeightRecord): Promise<InsertResult> {
     return this._weightRecordService.create(record);
   }
 
   // ➡️ update record
-  @Put(`update`)
+  @Put(``)
   update(@Body() record): Promise<UpdateResult> {
     return this._weightRecordService.update(record);
   }
 
   // ➡️ delete record
-  @Delete(`delete/:id`)
+  @Delete(`:id`)
   delete(@Param() id: number) {
     this._weightRecordService.delete(id);
   }

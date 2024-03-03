@@ -12,12 +12,23 @@ export class WeightRecordQueryBuilderService {
       .getRepository(WeightRecord)
       .createQueryBuilder()
       .select()
-      .where(`weight_cycle_id = :id`, { id: cycleId })
+      .where(`weight_cycle_uuid = :id`, { id: cycleId })
       .getMany();
+  }
+
+  // ➡️ get record by uuid
+  getRecordById(id: number): Promise<WeightRecord> {
+    return this._datasource
+      .getRepository(WeightRecord)
+      .createQueryBuilder()
+      .select()
+      .where(`uuid = :id`, { id: id })
+      .getOne();
   }
 
   // ➡️ create record
   create(record: WeightRecord): Promise<InsertResult> {
+    console.table(record);
     return this._datasource
       .getRepository(WeightRecord)
       .createQueryBuilder()
@@ -29,6 +40,7 @@ export class WeightRecordQueryBuilderService {
 
   // ➡️ update record
   update(record: WeightRecord): Promise<UpdateResult> {
+    console.table(record);
     return this._datasource
       .getRepository(WeightRecord)
       .createQueryBuilder()
@@ -44,7 +56,7 @@ export class WeightRecordQueryBuilderService {
         thigh: record.thigh,
         arm: record.arm
       })
-      .where(`id = :id`, { id: record.id })
+      .where(`uuid = :id`, { id: record.uuid })
       .execute();
   }
 
@@ -55,7 +67,7 @@ export class WeightRecordQueryBuilderService {
       .createQueryBuilder()
       .delete()
       .from(WeightRecord)
-      .where(`id = :id`, { id: recordId })
+      .where(`uuid = :id`, { id: recordId })
       .execute();
   }
 }
